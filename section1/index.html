@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script>
+    <style>
+        .active {
+            border: 1px solid red;
+        }
+
+        .text-danger {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 仮装DOM, この範囲でvueの書き方ができる -->
+    <div id="app">
+        {{ message }}
+        <!-- <a v-bind:href="googleLink">Googleへのリンク</a> -->
+        <!-- <a :href="googleLink">Googleへのリンク</a> -->
+        <!-- <input v-bind="{name:formInput.name, placeholder:formInput.placeholder}"> -->
+        <!-- <input :href="formInput"> -->
+
+        <div :style="{'font-size': fontSize, color: color}">styleテスト</div>
+        <div :class="{active: true, 'text-danger': true}">styleテスト</div>
+        <div></div>
+    </div>
+
+    <script>
+        let app = new Vue({
+            el: '#app', // 仮装DOMにする範囲を指定
+            data() {
+                return {
+                    googleLink: 'https://google.com',
+                    message: 'Hello Vue!',
+                    formInput: {
+                        name: 'name',
+                        placeholder: 'お名前を入力してください'
+                    },
+                    fontSize: '20px',
+                    color: 'blue'
+                }
+            }
+        })
+
+        const html = document.querySelector('html');
+        // console.dir(html); // 実際のDOM
+        // console.dir(app) // 仮装DOM
+    </script>
+</body>
+
+</html>
