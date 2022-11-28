@@ -29,7 +29,7 @@
 
         <div :style="{'font-size': fontSize, color: color}">styleテスト</div>
         <div :class="{active: true, 'text-danger': true}">styleテスト</div>
-        <div></div>
+        <div v-show="isDisplay">v-show</div>
     </div>
 
     <script>
@@ -44,7 +44,8 @@
                         placeholder: 'お名前を入力してください'
                     },
                     fontSize: '20px',
-                    color: 'blue'
+                    color: 'blue',
+                    isDisplay: true
                 }
             }
         })
