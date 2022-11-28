@@ -30,6 +30,10 @@
         <div :style="{'font-size': fontSize, color: color}">styleテスト</div>
         <div :class="{active: true, 'text-danger': true}">styleテスト</div>
         <div v-show="isDisplay">v-show</div>
+
+        <div v-if="signal === 'red'">赤</div>
+        <div v-else-if="signal === 'yellow'">黄色</div>
+        <div v-else="signal === 'blue'">青</div>
     </div>
 
     <script>
@@ -45,7 +49,8 @@
                     },
                     fontSize: '20px',
                     color: 'blue',
-                    isDisplay: true
+                    isDisplay: true,
+                    signal: 'red'
                 }
             }
         })
