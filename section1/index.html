@@ -34,6 +34,27 @@
         <div v-if="signal === 'red'">赤</div>
         <div v-else-if="signal === 'yellow'">黄色</div>
         <div v-else="signal === 'blue'">青</div>
+
+        <ul>
+            <li v-for="(value, key, index) in book">{{ value }} {{ key }} {{ index }}</li>
+        </ul>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="food in foods" :key="book.id">
+                    <td>{{ food.id }}</td>
+                    <td>{{ food.name }}</td>
+                    <td>{{ food.type }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <script>
@@ -50,7 +71,28 @@
                     fontSize: '20px',
                     color: 'blue',
                     isDisplay: true,
-                    signal: 'red'
+                    signal: 'red',
+                    book: {
+                        title: "hoge",
+                        author: "yykm",
+                        url: "https://google.com"
+                    },
+                    foods: [{
+                            id: 1,
+                            name: 'アスパラガス',
+                            type: 'vegetables'
+                        },
+                        {
+                            id: 2,
+                            name: 'バナナ',
+                            type: 'fruit'
+                        },
+                        {
+                            id: 3,
+                            name: '羊',
+                            type: 'meat'
+                        }
+                    ],
                 }
             }
         })
