@@ -2,109 +2,145 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script>
-    <style>
-        .active {
-            border: 1px solid red;
-        }
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script>
+  <style>
+    .active {
+      border: 1px solid red;
+    }
 
-        .text-danger {
-            color: red;
-        }
-    </style>
+    .text-danger {
+      color: red;
+    }
+  </style>
 </head>
 
 <body>
-    <!-- 仮装DOM, この範囲でvueの書き方ができる -->
-    <div id="app">
-        {{ message }}
-        <!-- <a v-bind:href="googleLink">Googleへのリンク</a> -->
-        <!-- <a :href="googleLink">Googleへのリンク</a> -->
-        <!-- <input v-bind="{name:formInput.name, placeholder:formInput.placeholder}"> -->
-        <!-- <input :href="formInput"> -->
+  <!-- 仮装DOM, この範囲でvueの書き方ができる -->
+  <div id="app">
+    {{ message }}
+    <!-- <a v-bind:href="googleLink">Googleへのリンク</a> -->
+    <!-- <a :href="googleLink">Googleへのリンク</a> -->
+    <!-- <input v-bind="{name:formInput.name, placeholder:formInput.placeholder}"> -->
+    <!-- <input :href="formInput"> -->
 
-        <div :style="{'font-size': fontSize, color: color}">styleテスト</div>
-        <div :class="{active: true, 'text-danger': true}">styleテスト</div>
-        <div v-show="isDisplay">v-show</div>
+    <div :style="{'font-size': fontSize, color: color}">styleテスト</div>
+    <div :class="{active: true, 'text-danger': true}">styleテスト</div>
+    <div v-show="isDisplay">v-show</div>
 
-        <div v-if="signal === 'red'">赤</div>
-        <div v-else-if="signal === 'yellow'">黄色</div>
-        <div v-else="signal === 'blue'">青</div>
+    <div v-if="signal === 'red'">赤</div>
+    <div v-else-if="signal === 'yellow'">黄色</div>
+    <div v-else="signal === 'blue'">青</div>
 
-        <ul>
-            <li v-for="(value, key, index) in book">{{ value }} {{ key }} {{ index }}</li>
-        </ul>
+    <ul>
+      <li v-for="(value, key, index) in book">{{ value }} {{ key }} {{ index }}</li>
+    </ul>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>name</th>
-                    <th>type</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="food in foods" :key="book.id">
-                    <td>{{ food.id }}</td>
-                    <td>{{ food.name }}</td>
-                    <td>{{ food.type }}</td>
-                </tr>
-            </tbody>
-        </table>
+    <table>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>name</th>
+          <th>type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="food in foods" :key="book.id">
+          <td>{{ food.id }}</td>
+          <td>{{ food.name }}</td>
+          <td>{{ food.type }}</td>
+        </tr>
+      </tbody>
+    </table>
 
-        <div v-text="text"></div>
-        <div v-html="text"></div>
-    </div>
+    <div v-text="text"></div>
+    <div v-html="text"></div>
 
-    <script>
-        let app = new Vue({
-            el: '#app', // 仮装DOMにする範囲を指定
-            data() {
-                return {
-                    googleLink: 'https://google.com',
-                    message: 'Hello Vue!',
-                    formInput: {
-                        name: 'name',
-                        placeholder: 'お名前を入力してください'
-                    },
-                    fontSize: '20px',
-                    color: 'blue',
-                    isDisplay: true,
-                    signal: 'red',
-                    book: {
-                        title: "hoge",
-                        author: "yykm",
-                        url: "https://google.com"
-                    },
-                    foods: [{
-                            id: 1,
-                            name: 'アスパラガス',
-                            type: 'vegetables'
-                        },
-                        {
-                            id: 2,
-                            name: 'バナナ',
-                            type: 'fruit'
-                        },
-                        {
-                            id: 3,
-                            name: '羊',
-                            type: 'meat'
-                        }
-                    ],
-                    text: 'あああ<br>いいい'
-                }
+    <form>
+      <!-- イベント伝播確認用 -->
+      <div v-on:click="btnClicked">
+        <button type='submit' @click.prevent.stop="btnClickedArgs($event, 100)">submit ボタン</button>
+      </div>
+    </form>
+
+    <!-- computed -->
+    <!-- not cached -->
+    {{ totalPriceMethod() }}
+    {{ totalPriceMethod() }}
+    <br>
+    <!-- cached -->
+    {{ totalPrice }}
+    {{ totalPrice }}
+  </div>
+
+  <script>
+    let app = new Vue({
+      el: '#app', // 仮装DOMにする範囲を指定
+      data() {
+        return {
+          googleLink: 'https://google.com',
+          message: 'Hello Vue!',
+          formInput: {
+            name: 'name',
+            placeholder: 'お名前を入力してください'
+          },
+          fontSize: '20px',
+          color: 'blue',
+          isDisplay: true,
+          signal: 'red',
+          book: {
+            title: "hoge",
+            author: "yykm",
+            url: "https://google.com"
+          },
+          foods: [{
+              id: 1,
+              name: 'アスパラガス',
+              type: 'vegetables'
+            },
+            {
+              id: 2,
+              name: 'バナナ',
+              type: 'fruit'
+            },
+            {
+              id: 3,
+              name: '羊',
+              type: 'meat'
             }
-        })
+          ],
+          text: 'あああ<br>いいい',
+          price: 1,
+          number: 1
+        }
+      },
+      methods: {
+        btnClicked() {
+          console.log('クリックされたよ');
+        },
+        btnClickedArgs(e, int) {
+          console.log(e, int);
+        },
+        totalPriceMethod() {
+          console.log('not cached')
+          return this.number * this.price;
+        }
+      },
+      computed: {
+        totalPrice() {
+          console.log('cached')
+          return this.number * this.price;
+        }
+      }
+    })
 
-        const html = document.querySelector('html');
-        // console.dir(html); // 実際のDOM
-        // console.dir(app) // 仮装DOM
-    </script>
+    const html = document.querySelector('html');
+    // console.dir(html); // 実際のDOM
+    // console.dir(app) // 仮装DOM
+  </script>
 </body>
 
 </html>
