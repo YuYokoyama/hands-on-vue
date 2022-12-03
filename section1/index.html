@@ -134,6 +134,15 @@
           console.log('cached')
           return this.number * this.price;
         }
+      },
+      watch: {
+        foods: {
+          // handler: function(){}
+          handler() {
+            console.log('foodsが変更されたよ')
+          },
+          deep: true
+        }
       }
     })
 
