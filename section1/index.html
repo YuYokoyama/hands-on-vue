@@ -143,6 +143,16 @@
           },
           deep: true
         }
+      },
+      created(){
+        console.log('created');
+        console.log(this.$el);
+        console.log(this.text);
+      },
+      mounted(){
+        console.log('mounted');
+        console.log(this.$el);
+        console.log(this.text);
       }
     })
 
