@@ -7,12 +7,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script>
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
 </head>
 
 <body>
   <div id="app">
-    <form>
-      <input type="text" v-model="person.name">
+    <p v-show="hasError.name" class="error">validation err!</p>
+    <form @submit="submit">
+      <input type="text" v-model="name">
       <br>
       <input type="text" v-model.trim.number.lazy="person.tel">電話番砲
       <br>
@@ -40,7 +46,7 @@
   </div>
 
   <script>
-    let app = new Vue({ 
+    let app = new Vue({
       el: '#app',
       data() {
         return {
@@ -51,9 +57,33 @@
             age: '',
             favorites: [],
             adult: false
+          },
+          hasError: {
+            name: false
           }
         }
       },
+      methods: {
+        submit() {
+          // this.validate...
+          console.log('submitted');
+        }
+      },
+      computed: {
+        name: {
+          get() {
+            return 'computed' + this.person.name;
+          },
+          set(newVal) {
+            if (newVal.length > 10) {
+              this.hasError.name = true;
+              return;
+            }
+            this.hasError.name = false;
+            this.person.name = newVal;
+          }
+        }
+      }
     })
   </script>
 </body>
