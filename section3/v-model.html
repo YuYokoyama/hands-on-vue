@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <form>
+      <input type="text" v-model="person.name">
+      <br>
+      <input type="text" v-model.trim.number.lazy="person.tel">電話番砲
+      <br>
+      <input type="radio" value="male" v-model="person.gender">男性
+      <input type="radio" value="female" v-model="person.gender">女性
+      <input type="radio" value="other" v-model="person.gender">その他
+      <br>
+      年齢
+      <select v-model="person.age">
+        <option disabled value="">年齢を選択してください</option>
+        <option>10代</option>
+        <option>20代</option>
+        <option>30代</option>
+        <option>40代</option>
+      </select>
+      <br>
+      <input type="checkbox" value="寿司" v-model="person.favorites">寿司
+      <input type="checkbox" value="バナナ" v-model="person.favorites">バナナ
+      <input type="checkbox" value="ハンバーグ" v-model="person.favorites">ハンバーグ
+      <br>
+      <input type="checkbox" v-model="person.adult">成人
+      <br>
+      <input type="submit" value="送信">
+    </form>
+  </div>
+
+  <script>
+    let app = new Vue({ 
+      el: '#app',
+      data() {
+        return {
+          person: {
+            name: '',
+            tel: '',
+            gender: '',
+            age: '',
+            favorites: [],
+            adult: false
+          }
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>
