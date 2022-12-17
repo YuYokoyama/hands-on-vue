@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script>
+  <style>
+    .parent {
+      margin: 0 auto;
+      width: 800px;
+      border: red 1px solid
+    }
+
+    .children {
+      margin: 0 auto;
+      width: 30%;
+      border: blue 1px solid
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="parent">
+    <local-component v-model="parentValue" class="children">
+    </local-component>
+  </div>
+
+  <script>
+    const localComponent = {
+      template: `<div>
+        <input id="hoge" :value="value" @input="childMethod">
+      </div>`,
+      props: {
+        value: {
+          type: String
+        }
+      },
+      methods: {
+        childMethod(e) {
+          this.$emit('input', e.target.value);
+        }
+      }
+    };
+
+    const app = new Vue({
+      components: {
+        localComponent
+      },
+      data() {
+        return {
+          parentValue: ''
+        }
+      },
+      methods: {
+        parentMethod(e) {
+          console.log(e);
+        }
+      }
+    });
+    app.$mount('#app');
+  </script>
+</body>
+
+</html>
