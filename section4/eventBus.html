@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script>
+  <style>
+    .parent {
+      margin: 0 auto;
+      width: 800px;
+      border: red 1px solid
+    }
+
+    .children {
+      margin: 0 auto;
+      width: 30%;
+      border: blue 1px solid
+    }
+
+    .grand-children {
+      margin: 0 auto;
+      width: 20%;
+      border: green 1px solid
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="parent">
+    親です
+    <child-component class="children"></child-component>
+    <button @click="testEvent">ボタン</button>
+  </div>
+
+  <script>
+    const grandChildComponent = {
+      template: `<div>
+          孫です
+          <button @click="testEvent">ボタン</button>
+        </div>`,
+      methods: {
+        testEvent() {
+          eventBus.$emit('from-grand-child-to-parent', '孫から親へ')
+        }
+      },
+      created() {
+        eventBus.$on('from-parent-to-grand-child', test => {
+          console.log(test);
+        })
+      }
+    };
+
+    const childComponent = {
+      template: `<div>
+          子です
+          <grand-child-component class="grand-children"></grand-child-component>
+        </div>`,
+      components: {
+        grandChildComponent
+      }
+    };
+
+    let eventBus = new Vue();
+    const app = new Vue({
+      el: '#app',
+      components: {
+        childComponent
+      },
+      created() {
+        eventBus.$on('from-grand-child-to-parent', test => {
+          console.log(test);
+        })
+      },
+      methods: {
+        testEvent() {
+          eventBus.$emit('from-parent-to-grand-child', '親から孫へ')
+        }
+      }
+    });
+    app.$mount('#app');
+  </script>
+</body>
+
+</html>
